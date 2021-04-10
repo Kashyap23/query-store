@@ -15,22 +15,23 @@ import (
 )
 
 func main(){
-    // Initialize query store directory
+    //Initialize query store directory
     queryStoreInit := queryStore.InitQueryStore("/var/tmp/")
-    jsonQuery := map[string]interface{}{"jsonKey1" : "jsonValue1",}
-    byteQuery, _ := json.Marshal(jsonQuery)
+    byteQuery, _ := json.Marshal(map[string]interface{}{"jsonKey1" : "jsonValue1",})
 
-    // Store json query
+    //Store json query
     id := queryStore.StoreQuery(byteQuery)
     fmt.Println("Got id for query - ", id)
 
-   // Retrive query for id
-   byteQuery = queryStore.GetQueryForHash(id)
-   err := json.Umarshal(byteQuery, &jsonQuery)
-   if err != nil {
-       fmt.Println("Error during unmarshal - ", err)
-   }
+    //Retrive query for id
+    jsonQuery := map[string]interface{}
+    byteQuery = queryStore.GetQueryForHash(id)
 
-   fmt.Println("Response from query store - ", jsonQuery)
+    err := json.Umarshal(byteQuery, &jsonQuery)
+    if err != nil {
+       fmt.Println("Error during unmarshal - ", err)
+    }
+
+    fmt.Println("Response from query store - ", jsonQuery)
 }
 ```
