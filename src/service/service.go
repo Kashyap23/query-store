@@ -98,12 +98,12 @@ func DecodeStringToByte(text string) []byte {
 	return _bytes
 }
 
-func StoreQuery(query []byte) string {
+func (q *QueryStore) StoreQuery(query []byte) string {
 	encodedQuery := EncodeByteToString(query)
-	return queryStore.Set(encodedQuery)
+	return q.Set(encodedQuery)
 }
 
-func GetQueryForHash(key string) []byte {
-	query := queryStore.Get(key)
+func (q *QueryStore) GetQueryForHash(key string) []byte {
+	query := q.Get(key)
 	return DecodeStringToByte(query)
 }
